@@ -7,6 +7,19 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="org.bytedeco.javacpp-presets:opencv:4.0.1-1.4.4" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://C:/opencv/build/java/opencv-411.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <NATIVE>
+          <root url="file://C:/opencv/build/java/x64" />
+        </NATIVE>
+        <SOURCES>
+          <root url="jar://C:/opencv/build/java/opencv-411.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
   </component>
 </module>
