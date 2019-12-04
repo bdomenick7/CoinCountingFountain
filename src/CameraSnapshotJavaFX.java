@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.stage.Stage;
+
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
@@ -104,5 +105,6 @@ public class CameraSnapshotJavaFX extends Application
         public static void main(String args[])
         {
             launch(args);
+            new HoughCirclesRun().run(args);
         }
     }
