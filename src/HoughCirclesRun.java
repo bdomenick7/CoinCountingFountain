@@ -1,26 +1,25 @@
 //Original code from https://docs.opencv.org/3.4/d4/d70/tutorial_hough_circle.html
 
-import org.apache.commons.io.FileUtils;             //Apache Commons IO for iteration through folder
+//imports for Apache Commons IO for iteration through folder
+import org.apache.commons.io.FileUtils;
 
-import org.opencv.core.*;                           //OpenCV for image import and processing
+//imports for opencv image processing
+import org.opencv.core.*;
 import org.opencv.core.Point;
 import org.opencv.highgui.HighGui;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import static org.opencv.imgproc.Imgproc.*;
-import static org.opencv.imgcodecs.Imgcodecs.imread;
 
-import java.io.File;                                //Java IO for file exploration
+//imports for java io
+import java.io.File;
 import java.util.Iterator;
 
-/**
- * Class that runs the Hough Circle Transformation to detect circles and measure radii
- * @param
- * @return
- */
+
+//Class that runs the Hough Circle Transformation on the supplied image
 public class HoughCirclesRun
 {
-
+    //double variable to hold total amount in fountain
     public double fountainTotal = 0.0;
 
     public void run(String[] args) {
@@ -57,9 +56,6 @@ public class HoughCirclesRun
             Imgproc.cvtColor(resizedImage, gray, Imgproc.COLOR_BGR2GRAY);
             Imgproc.medianBlur(gray, gray, 5);
             Mat circles = new Mat();
-            /*Imgproc.HoughCircles(gray, circles, Imgproc.HOUGH_GRADIENT, 1.0,
-                    (double)gray.rows()/16, // change this value to detect circles with different distances to each other
-                    100.0, 30.0, 1, 30); // change the last two parameters*/
             double minimumDistanceBetweenCircles = gray.rows() / 16.0;
             System.out.println("minimum distance between circles: " + minimumDistanceBetweenCircles);
             Imgproc.HoughCircles(gray, circles, Imgproc.HOUGH_GRADIENT, 1.0,
@@ -79,12 +75,14 @@ public class HoughCirclesRun
                 Imgproc.circle(resizedImage, center, radius, new Scalar(255,0,255), 3, 8, 0 );
                 System.out.println(radius);
 
+                //Measurements for coins at height of mounted camera are as follows
                 // 16-21 for pennies and dimes
                 // 20-22 for nickels
-                // 22-25 for quarters
+                // 23-25 for quarters
                 // 32 for half-dollars
                 // 36-38 for dollars
 
+                //Logic to determine coin type based on size and increment total in correct amount
                 if (radius >= 17 && radius <= 19)
                 {
                     System.out.println("penny!");
@@ -118,7 +116,6 @@ public class HoughCirclesRun
                 String windowName = "detected circles";
 
                 // Show the image with the detected circles
-                // HighGui.imshow(windowName, src);
                 HighGui.imshow(windowName, resizedImage);
 
                 // Wait for the user to press a key/close the window
@@ -128,18 +125,6 @@ public class HoughCirclesRun
                 HighGui.destroyWindow(windowName);
             }
         }
-
-        //HighGui.waitKey(); (NO LONGER USED)
         System.exit(0);
     }
 }
-/**
-public class HoughCircles {
-    public static void main(String[] args)
- {
-        // Load the native library.
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        new HoughCirclesRun().run(args);
-    }
-}
- */

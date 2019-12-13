@@ -1,9 +1,6 @@
 //Code taken from https://www.tutorialspoint.com/javaexamples/snapshot_from_system_camera.htm
-//Thanks for the legit code my dude!
 
-import goPro.BacPacStatus;
-import goPro.CamFields;
-import goPro.GoProApi;
+//Imports for javafx packages
 import javafx.application.Application;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Group;
@@ -12,21 +9,22 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.stage.Stage;
 
+//imports for opencv pacakges
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.videoio.VideoCapture;
 
+//imports for java awt packages
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 import java.awt.image.WritableRaster;
+
+//imports for java io packages
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.*;
-import java.io.*;
 
-import org.apache.http.client.methods.HttpGet;
-
+//original class for capturing image with webcam/system cam
 public class CameraSnapshotJavaFX extends Application
     {
         Mat matrix = null;
@@ -98,6 +96,7 @@ public class CameraSnapshotJavaFX extends Application
             }
             return WritableImage;
         }
+        //Saving image to desktop folder
         public void saveImage() {
             // Saving the Image
             String file = "C:\\Users\\cryst\\Desktop\\Group Project Images\\snapshot.jpg";
@@ -105,7 +104,7 @@ public class CameraSnapshotJavaFX extends Application
             // Instantiating the imgcodecs class
             Imgcodecs imageCodecs = new Imgcodecs();
 
-            // Saving it again
+            // Saving it again and handling exceptions
             try {
                 imageCodecs.imwrite(file, matrix);
             }
@@ -120,219 +119,14 @@ public class CameraSnapshotJavaFX extends Application
             }
         }
 
-        /*private static void getGoProBatteryLevel() throws IOException
-        {
-            System.out.println("Getting GoPro battery level:");
-            makeHttpRequest("bacpac/cv");
-        }
-
-        private static void getGoProInfo() throws IOException
-        {
-            System.out.println("Getting GoPro information:");
-            makeHttpRequest("gp/gpControl/info");
-        }
-
-        private static void getGoProMediaList() throws IOException
-        {
-            System.out.println("Getting GoPro media list:");
-            makeHttpRequest("gp/gpMediaList");
-        }
-
-        private static void getGoProMediaMetadata() throws IOException
-        {
-            System.out.println("Getting GoPro image GOPRO63.jpg:");
-            makeHttpRequest("gp/gpMediaMetadata?p=/100GOPRO/GOPRO063.jpg");
-        }
-
-        private static void getGoProPresets() throws IOException
-        {
-            System.out.println("Getting GoPro presets:");
-            makeHttpRequest("gp/gpControl/preset/get_presets");
-        }
-
-        private static void getGoProStatus() throws IOException
-        {
-            System.out.println("Getting GoPro status:");
-            makeHttpRequest("gp/gpControl/status");
-        }
-
-        private static void resetGoProStream() throws IOException
-        {
-            System.out.println("Restarting GoPro stream?");
-            makeHttpRequest("gp/gpControl/execute?p1=gpStream&c1=restart");
-        }
-
-        private static void setGoProTo64() throws IOException
-        {
-            System.out.println("Getting GoPro setting 64:");
-            makeHttpRequest("gp/gpControl/setting/64/0");
-        }
-
-        // clear analytics --> /gp/gpControl/analytics/clear
-        // shutter command --> /gp/gpControl/command/shutter?p=1
-        // wireless pair complete --> /gp/gpControl/command/wireless/pair/complete?success=1&deviceName=SM-G920V
-
-        private static void turnGoProCameraOn() throws IOException
-        {
-            System.out.println("Turning GoPro camera on:");
-            makeHttpRequest("gp/gpControl/camera/PV/2");
-        }
-
-        public static void makeHttpRequest(String command) throws IOException
-        {
-            // URL goProURL = new URL("http://10.5.5.9/gp/gpControl/info");
-            URL goProURL = new URL("http://10.5.5.9/" + command);
-            URLConnection goProConnection = goProURL.openConnection();
-            BufferedReader in = new BufferedReader(
-                    new InputStreamReader(
-                            goProConnection.getInputStream()));
-            String inputLine;
-
-            while ((inputLine = in.readLine()) != null)
-                System.out.println(inputLine);
-
-            in.close();
-        }*/
-
-        // bacpac commands
-        // --> /bacpac/cv (checks battery level)
-
-        // gpControl commands (/gpControl)
-        // get info --> /info
-        // get status --> /status
-        // set up datetime --> /command/setup/date_time
-        // execute stream restart --> /execute?p1=gpStream&c1=restart
-        // setting 64 -->
-        // --> /preset/get_presets
-        // --> /camera/PV/2 (turn camera on?)
-
-        // gpMediaList commands
-        // --> /gpMediaList
-
-        // gpMediaMetadata
-        // (base) --> gpMediaMetadata?p=/100GOPRO/GOPRO063.jpg
-
-        // ORDER OF COMMANDS FROM APP
-        // gets status
-        // sets the date/time
-        // restarts the stream
-        // sets something to 64
-        // gets jpeg
-
-        // gets jpeg
-        // gets status
-
+        //Main
         public static void main(String args[])
         {
-            // Loading the OpenCV core library
-            System.loadLibrary( Core.NATIVE_LIBRARY_NAME );
 
-            // GoProApi gopro = new GoProApi("VN5-KNP-znn");
-
-            /*try {
-                byte[] response = gopro.getHelper().sendGET("http://10.5.5.9/gp/gpControl/info");
-            }
-            catch (Exception exception)
-            {
-
-            }*/
-
-            /*try {
-                getGoProInfo();
-
-                getGoProStatus();
-
-                // sets the date/time
-
-                // resetGoProStream();
-
-                // sets something to 64
-                // gets jpeg
-
-                // gets jpeg
-                // gets status
-
-                getGoProBatteryLevel();
-
-                getGoProMediaList();
-
-                // getGoProPresets();
-
-                turnGoProCameraOn();
-            }
-            catch (Exception exception)
-            {
-                System.out.print("Failed to get GoPro info: ");
-                System.out.println(exception);
-            }
-
-            System.exit(0);
-
-            try
-            {
-                BacPacStatus bacPacStatus = gopro.getHelper().getBacpacStatus();
-
-                int cameraPowerStatus = bacPacStatus.getCameraPower();
-
-                if (cameraPowerStatus == 1)
-                    System.out.println("Camera power is on.");
-                else
-                    System.out.println("Camera power is off.");
-
-                int cameraReadyStatus = bacPacStatus.getCameraReady();
-
-                if (cameraReadyStatus == 1)
-                    System.out.println("Camera is ready.");
-                else
-                    System.out.println("Camera is not ready.");
-
-                int cameraModel = bacPacStatus.getCameraModel();
-
-                System.out.print("camera model is ");
-                System.out.println(cameraModel);
-            }
-            catch (Exception exception)
-            {
-                System.out.println("Failed to get BacPacStatus!");
-            }
-
-            CamFields cameraInfo = gopro.getHelper().getCameraInfo();
-
-            System.out.print("camera info: ");
-            System.out.println(cameraInfo);
-
-            try
-            {
-                gopro.powerOnAndStartRecord();
-                gopro.stopRecord();
-            }
-            catch (Exception exception)
-            {
-                System.out.println("Failed to power on and start recording.");
-            }
-
-            //Starting a record in Go Pro
-            /*try
-            {
-                gopro.startRecord();
-            }
-            catch (Exception exception)
-            {
-                System.out.println("Failed to start recording!");
-            }*/
-
-            //Stopping a record in Go Pro
-            /*try
-            {
-                gopro.stopRecord();
-            }
-            catch (Exception exception)
-            {
-                System.out.println("Failed to stop recording!");
-            }*/
-
+            //Original method call to launch webcam image capture, now commented out and not in use
             // launch(args);
+
+            //Method call to run Hough Circle transformation
             new HoughCirclesRun().run(args);
-            // System.exit(0);
         }
     }
