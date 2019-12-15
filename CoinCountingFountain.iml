@@ -21,8 +21,10 @@
         </SOURCES>
       </library>
     </orderEntry>
+<<<<<<< HEAD
     <orderEntry type="library" name="commons-io:commons-io:2.5" level="project" />
     <orderEntry type="library" name="com.fazecast:jSerialComm:2.5.3" level="project" />
+=======
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
@@ -59,5 +61,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+>>>>>>> parent of 1fa6395... apache commons from maven
   </component>
 </module>
