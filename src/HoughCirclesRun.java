@@ -1,7 +1,6 @@
 //Original code from https://docs.opencv.org/3.4/d4/d70/tutorial_hough_circle.html
 
 //imports for Apache Commons IO for iteration through folder
-import com.fazecast.jSerialComm.SerialPort;
 import org.apache.commons.io.FileUtils;
 
 //imports for opencv image processing
@@ -20,7 +19,6 @@ import java.util.Iterator;
 //Class that runs the Hough Circle Transformation on the supplied image
 public class HoughCirclesRun
 {
-    static SerialPort chosenPort;
     //double variable to hold total amount in fountain
     public double fountainTotal = 0.0;
 
@@ -113,18 +111,6 @@ public class HoughCirclesRun
             }
             //Output fountain total to screen
             System.out.print("The total donation is $" + fountainTotal);
-           /* // attempt to connect to the serial port
-            chosenPort = SerialPort.getCommPort(portList.getSelectedItem().toString());
-            chosenPort.setComPortTimeouts(SerialPort.TIMEOUT_SCANNER, 0, 0);
-            if(chosenPort.openPort()) {
-                connectButton.setText("Disconnect");
-                portList.setEnabled(false);
-
-                // create a new thread for sending data to the arduino
-                Thread thread = new Thread(){
-                    @Override public void run() {
-                        // wait after connecting, so the bootloader can finish
-                        try {Thread.sleep(100); } catch(Exception e) {} */
             if (numberOfCirclesDetected >= 0)
             {
                 String windowName = "detected circles";
