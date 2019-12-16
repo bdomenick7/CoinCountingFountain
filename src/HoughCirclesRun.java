@@ -51,7 +51,7 @@ public class HoughCirclesRun
 
             resize(src, resizedImage, scaleSize , 0, 0, INTER_AREA);
 
-            //Use a grey mat to change image from BRG to grayscale
+            //Use a grey mat to change image from RGB to grayscale
             Mat gray = new Mat();
             Imgproc.cvtColor(resizedImage, gray, Imgproc.COLOR_BGR2GRAY);
             Imgproc.medianBlur(gray, gray, 5);
